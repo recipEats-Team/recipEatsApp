@@ -50,9 +50,9 @@ export default class CameraExample extends React.Component {
                         ? Camera.Constants.Type.front
                         : Camera.Constants.Type.back,
                   });
-                  // this.camera.takePictureAsync().then((image64)=>{
-                  //   console.log(image64);
-                  // })
+                  this.camera.takePictureAsync().then((base64)=>{
+                    console.log(base64);
+                  })
                 }}>
                 <Text style={{ fontSize: 18, marginBottom: 10, marginLeft: 5, color: 'white' }}> Flip </Text>
               </TouchableOpacity>
