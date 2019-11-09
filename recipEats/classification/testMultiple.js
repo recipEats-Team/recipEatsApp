@@ -9,7 +9,7 @@ async function detectMultiple(fileName){
     /**
      * TODO(developer): Uncomment the following line before running the sample.
      */
-    //const fileName = "C:\\Users\\Remington\\Pictures\\tomato2.jpg";
+    //const fileName = "filename.jpg";
     const request = {
     image: {content: fs.readFileSync(fileName)},
     };
@@ -23,6 +23,3 @@ async function detectMultiple(fileName){
     vertices.forEach(v => console.log(`x: ${v.x}, y:${v.y}`));
     });
 }
-
-
-detectMultiple("C:\\Users\\Remington\\Pictures\\blt_test5.jpg");
