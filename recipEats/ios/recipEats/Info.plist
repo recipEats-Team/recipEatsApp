@@ -78,7 +78,6 @@
 	<string>Give recipEats periences permission to access your photos</string>
 	<key>NSRemindersUsageDescription</key>
 	<string>Allow recipEats to access your reminders</string>
-	<key>NSCameraUsageDescription</key>
-	<string>This app requires the camera to take an image to be identified</string>
+
 </dict>
 </plist>
