@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
   "scripts": {
     "postinstall": "jetify",
@@ -34,6 +33,3 @@
   },
   "private": true
 }
-=======
-{"name":"recipEats","version":"0.0.1","private":true,"scripts":{"start":"node node_modules/react-native/local-cli/cli.js start"}}
->>>>>>> 724f464f069594e2583a0019cb0ef898d34baf02
