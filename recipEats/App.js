@@ -14,6 +14,13 @@ export default class CameraExample extends React.Component {
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
+  snap = async () => {
+    if (this.camera) {
+      let photo = await this.camera.takePctureAsync();
+      console.log(photo);
+    }
+  }
+
   render() {
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
@@ -43,8 +50,11 @@ export default class CameraExample extends React.Component {
                         ? Camera.Constants.Type.front
                         : Camera.Constants.Type.back,
                   });
+                  // this.camera.takePictureAsync().then((image64)=>{
+                  //   console.log(image64);
+                  // })
                 }}>
-                <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
+                <Text style={{ fontSize: 18, marginBottom: 10, marginLeft: 5, color: 'white' }}> Flip </Text>
               </TouchableOpacity>
               <TouchableHighlight style={styles.captureButton} disabled={this.props.buttonDisabled}>
                 <Button onPress={this.props.onClick} disabled={this.props.buttonDisabled} title="Capture" accessibilityLabel="Learn more about this button"/>
@@ -61,7 +71,11 @@ const styles = StyleSheet.create({
   captureButton: {
     width: 160,
     height: 50,
-    borderRadius: 10,
-    backgroundColor: "white",
+    marginTop: 570,
+    marginLeft: 97,
+    borderRadius: 100,
+    backgroundColor: "red",
+    borderColor: "white",
+    borderWidth: 3
   }
 });
