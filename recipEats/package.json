@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9721173421d9ed4f9ecb173e75e278e6732ee141
 {
   "scripts": {
     "postinstall": "jetify",
