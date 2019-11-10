@@ -2,11 +2,11 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, TouchableHighlight, Button } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
-import { quickstart } from 'test.js';
 
 var imageTemp = {
   image: null,
 }
+
 
 export default class recipEats extends React.Component {
   state = {
@@ -18,14 +18,14 @@ export default class recipEats extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
   }
+  
 
   async snap() {
     if (this.camera) {
       let photo = await this.camera.takePictureAsync();
       imageTemp.image = photo;
       //console.log(imageTemp.image);
-      quickstart(imageTemp);
-
+      
     }
   }
 
