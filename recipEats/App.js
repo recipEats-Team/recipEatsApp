@@ -37,15 +37,15 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#32d8f9'}}>
         <Image
-          style={{width: 60, height: 60}}
-          source={require('./logo_with_name.png')}
+          style={{width: 120, height: 120}}
+          source={require('./logo_without_name.png')}
         />
         <Text style={{fontSize: 31, marginBottom: 10}}>
           Welcome to recipEats!
         </Text>
-        <TouchableHighlight style={{height: 50, borderRadius: 100, backgroundColor: "#00BFFF", borderColor: "white", borderWidth: 3}} disabled={this.props.buttonDisabled}>
+        <TouchableHighlight style={{height: 50, borderRadius: 100, backgroundColor: "#D3D3D3", borderColor: "white", borderWidth: 1}} disabled={this.props.buttonDisabled}>
           <Button onPress={() => this.props.navigation.navigate('recipEats')} disabled={this.props.buttonDisabled} title="Take a Picture" accessibilityLabel="Learn more about this button"/>
         </TouchableHighlight>
       </View>
@@ -104,7 +104,6 @@ class recipEats extends React.Component {
   loadIntoList() {
         var XMLHttpRequest = require("xhr2");
         var request = new XMLHttpRequest;
-        console.log("test");
         const copyIngredients = ingredients;
         ingredients = [];
         var strIngredients = "";
@@ -129,7 +128,7 @@ class recipEats extends React.Component {
             }
             console.log(recipes);
         };
-        request.send()
+        request.send();
       }
 
   render() {
@@ -168,13 +167,13 @@ class recipEats extends React.Component {
                         : Camera.Constants.Type.back,
                   });
                 }}>
-                <Text style={{ fontSize: 18, marginBottom: 10, marginLeft: 5, color: 'white' }}> Flip </Text>
+                <Text style={styles.flipButton}> Flip </Text>
               </TouchableOpacity>
               <TouchableHighlight style={styles.captureButton} disabled={this.props.buttonDisabled}>
                 <Button onPress={this.snap.bind(this)} disabled={this.props.buttonDisabled} title="Capture" accessibilityLabel="Learn more about this button"/>
               </TouchableHighlight>
 
-              <TouchableHighlight style={styles.captureButton} disabled={this.props.buttonDisabled}>
+              <TouchableHighlight style={styles.captureButton2} disabled={this.props.buttonDisabled}>
                 <Button onPress={this.loadIntoList.bind(this)} disabled={this.props.buttonDisabled} title="Get Recipe" accessibilityLabel="Learn more about this button"/>
               </TouchableHighlight>
 
@@ -199,11 +198,15 @@ class RecipePage extends React.Component {
 
   render() {
     return (
-      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: "#32d8f9"}}>
+        <Image
+          style={{width: 240, height: 120, position: 'absolute', top: 10, left: 50}}
+          source={require('./wide_banner.png')}
+        />
         <Text style={{fontSize: 21}}>
           {recipes[0].recipe_title}
         </Text>
-        <Text style={{color: 'blue', marginBottom: 30}}
+        <Text style={{color: 'blue', marginBottom: 40}}
           onPress={() => Linking.openURL(recipes[0].recipe_url)}>
           1. {recipes[0].recipe_title} Recipe Link
         </Text>
@@ -211,7 +214,7 @@ class RecipePage extends React.Component {
         <Text style={{fontSize: 21}}>
           {recipes[1].recipe_title}
         </Text>
-        <Text style={{color: 'blue', marginBottom: 30}}
+        <Text style={{color: 'blue', marginBottom: 40}}
           onPress={() => Linking.openURL(recipes[1].recipe_url)}>
           2. {recipes[1].recipe_title} Recipe Link
         </Text>
@@ -219,7 +222,7 @@ class RecipePage extends React.Component {
         <Text style={{fontSize: 21}}>
           {recipes[2].recipe_title}
         </Text>
-        <Text style={{color: 'blue', marginBottom: 30}}
+        <Text style={{color: 'blue', marginBottom: 40}}
           onPress={() => Linking.openURL(recipes[2].recipe_url)}>
           3. {recipes[2].recipe_title} Recipe Link
         </Text>
@@ -249,7 +252,6 @@ export default class App extends React.Component {
 
 const styles = StyleSheet.create({
   captureButton: {
-    flex: 1,
     //width: 100,
     height: 50,
     // marginTop: 530,
@@ -258,12 +260,24 @@ const styles = StyleSheet.create({
     backgroundColor: "#87CEFA",
     borderColor: "white",
     borderWidth: 3,
-    alignItems: 'stretch',
-    justifyContent: 'flex-end',
-    flexDirection: 'column'
+    position: 'absolute',
+    bottom: 60,
+    left: 20,
+  },
+  captureButton2: {
+    //width: 100,
+    height: 50,
+    // marginTop: 530,
+    // marginLeft: 130,
+    borderRadius: 100,
+    backgroundColor: "#87CEFA",
+    borderColor: "white",
+    borderWidth: 3,
+    position: 'absolute',
+    bottom: 60,
+    left: 120,
   },
   getRecipeButton: {
-    flex: 1,
     //width: 300,
     height: 50,
     // marginTop: 590,
@@ -272,9 +286,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#00BFFF",
     borderColor: "white",
     borderWidth: 3,
-    alignItems: 'stretch',
-    justifyContent: 'flex-end',
-    flexDirection: 'column'
+    position: 'absolute',
+    bottom: 60,
+    left: 245,
   },
   showRecipiesButton: {
     //width: 300,
@@ -285,6 +299,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#00BFFF",
     borderColor: "white",
     borderWidth: 3,
-    alignItems: 'stretch'
+    position: 'absolute',
+    bottom: 10,
+  },
+  flipButton: {
+     fontSize: 18,
+     color: 'white',
+     position: 'absolute',
+     bottom: 20,
+     left: 40,
   }
 });
