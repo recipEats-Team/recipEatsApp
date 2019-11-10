@@ -1,9 +1,9 @@
 {
   "packagerPort": 19001,
-  "packagerPid": 29684,
+  "packagerPid": 14992,
   "devToolsPort": 19002,
   "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://pq-v25.anonymous.recipeats.exp.direct",
-  "packagerNgrokUrl": "https://packager.pq-v25.anonymous.recipeats.exp.direct",
-  "ngrokPid": 20636
+  "expoServerNgrokUrl": "https://pq-v25.garyzlobinskiy.recipeats.exp.direct",
+  "packagerNgrokUrl": "https://packager.pq-v25.garyzlobinskiy.recipeats.exp.direct",
+  "ngrokPid": 8612
 }

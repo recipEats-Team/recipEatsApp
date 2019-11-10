@@ -2,12 +2,15 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, TouchableHighlight, Button } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 const Clarifai = require('clarifai');
 
 const app = new Clarifai.App({
   apiKey: 'df97b2c4d8824774985ab72ef6420510'
 });
+
 var ingredients = [];
 
 //import { Quickstart } from 'test.js';
@@ -17,10 +20,15 @@ var ingredients = [];
 // }
 
 
-export default class recipEats extends React.Component {
+
+class recipEats extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
+  };
+
+  static navigationOptions = {
+    title: 'recipEats',
   };
 
   async componentDidMount() {
@@ -52,12 +60,14 @@ export default class recipEats extends React.Component {
         .catch(err => {
           console.log(err);
       });
-      
+
 
     }
   }
 
   render() {
+    const {navigate} = this.props.navigation;
+
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {
       return <View />;
@@ -96,6 +106,10 @@ export default class recipEats extends React.Component {
               <TouchableHighlight style={styles.captureButton} disabled={this.props.buttonDisabled}>
                 <Button onPress={this.snap.bind(this)} disabled={this.props.buttonDisabled} title="Capture" accessibilityLabel="Learn more about this button"/>
               </TouchableHighlight>
+
+              <TouchableHighlight style={styles.getRecipeButton} disabled={this.props.buttonDisabled}>
+                <Button onPress={() => this.props.navigation.navigate('RecipePage')} disabled={this.props.buttonDisabled} title="Get Recipe" accessibilityLabel="Learn more about this button"/>
+              </TouchableHighlight>
             </View>
           </Camera>
         </View>
@@ -104,15 +118,64 @@ export default class recipEats extends React.Component {
   }
 }
 
+class RecipePage extends React.Component {
+  static navigationOptions = {
+    title: 'RecipePage',
+  };
+  render() {
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Text>Recipe Screen</Text>
+      </View>
+    );
+  }
+}
+
+const AppNavigator = createStackNavigator(
+  {
+    recipEats: recipEats,
+    RecipePage: RecipePage,
+  },
+  {
+    initialRouteName: 'recipEats',
+  }
+);
+
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends React.Component {
+  render() {
+    return <AppContainer />;
+  }
+}
+
 const styles = StyleSheet.create({
   captureButton: {
-    width: 160,
+    flex: 1,
+    //width: 100,
     height: 50,
-    marginTop: 570,
-    marginLeft: 97,
+    // marginTop: 530,
+    // marginLeft: 130,
     borderRadius: 100,
-    backgroundColor: "red",
+    backgroundColor: "#87CEFA",
     borderColor: "white",
-    borderWidth: 3
+    borderWidth: 3,
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    flexDirection: 'column'
+  },
+  getRecipeButton: {
+    flex: 1,
+    //width: 300,
+    height: 50,
+    // marginTop: 590,
+    // marginLeft: -195,
+    borderRadius: 100,
+    backgroundColor: "#00BFFF",
+    borderColor: "white",
+    borderWidth: 3,
+    alignItems: 'stretch',
+    justifyContent: 'flex-end',
+    flexDirection: 'column'
   }
 });
