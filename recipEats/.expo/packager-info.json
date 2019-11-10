@@ -1,16 +1,9 @@
 {
-  "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-<<<<<<< HEAD
-  "packagerPid": 30012,
-  "expoServerNgrokUrl": "https://7r-xcn.anonymous.recipeats.exp.direct",
-  "packagerNgrokUrl": "https://packager.7r-xcn.anonymous.recipeats.exp.direct",
-  "ngrokPid": 40448
-=======
-  "packagerPid": 14532,
-  "expoServerNgrokUrl": "https://vx-xq2.garyzlobinskiy.recipeats.exp.direct",
-  "packagerNgrokUrl": "https://packager.vx-xq2.garyzlobinskiy.recipeats.exp.direct",
-  "ngrokPid": 15876
->>>>>>> 76d85da051b82abb16074f2436adb0210b6d9b33
+  "devToolsPort": 19003,
+  "expoServerPort": 19001,
+  "packagerPort": 19004,
+  "packagerPid": 3564,
+  "expoServerNgrokUrl": "https://kh-aea.valkim21.recipeats.exp.direct",
+  "packagerNgrokUrl": "https://packager.kh-aea.valkim21.recipeats.exp.direct",
+  "ngrokPid": 20964
 }

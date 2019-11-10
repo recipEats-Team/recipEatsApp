@@ -89,11 +89,7 @@ class recipEats extends React.Component {
           strIngredients+=ingredient+",";
         }
 
-<<<<<<< HEAD
-        request.open('GET', 'https://www.food2fork.com/api/search?key=10b32547038996873a98ecb520e3fcf0&q='+ strIngredients, true);
-=======
         request.open('GET', 'https://www.food2fork.com/api/search?key=f44660c756daa0d74cd838fa500e6b00&q='+ strIngredients, true);
->>>>>>> 76d85da051b82abb16074f2436adb0210b6d9b33
         request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
                 var data = JSON.parse(this.response);
@@ -110,6 +106,7 @@ class recipEats extends React.Component {
             }
             console.log(recipes);
         };
+        request.send();
       }
 
   render() {
