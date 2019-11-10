@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, TouchableHighlight, Button, Linking } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, TouchableHighlight, Button, Linking, Image } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import { createAppContainer } from 'react-navigation';
@@ -29,6 +29,29 @@ var fString = "";
 // var imageTemp = {
 //   image: null,
 // }
+
+class HomePage extends React.Component {
+  static navigationOptions = {
+    title: 'HomePage',
+  };
+
+  render() {
+    return (
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+        <Image
+          style={{width: 60, height: 60}}
+          source={require('./logo_with_name.png')}
+        />
+        <Text style={{fontSize: 31, marginBottom: 10}}>
+          Welcome to recipEats!
+        </Text>
+        <TouchableHighlight style={{height: 50, borderRadius: 100, backgroundColor: "#00BFFF", borderColor: "white", borderWidth: 3}} disabled={this.props.buttonDisabled}>
+          <Button onPress={() => this.props.navigation.navigate('recipEats')} disabled={this.props.buttonDisabled} title="Take a Picture" accessibilityLabel="Learn more about this button"/>
+        </TouchableHighlight>
+      </View>
+    )
+  }
+}
 
 
 class recipEats extends React.Component {
@@ -207,11 +230,12 @@ class RecipePage extends React.Component {
 
 const AppNavigator = createStackNavigator(
   {
+    HomePage: HomePage,
     recipEats: recipEats,
     RecipePage: RecipePage,
   },
   {
-    initialRouteName: 'recipEats',
+    initialRouteName: 'HomePage',
   }
 );
 
