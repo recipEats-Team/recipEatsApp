@@ -56,7 +56,7 @@ class recipEats extends React.Component {
 
       let photo = await this.camera.takePictureAsync(options);
 
-      app.models.predict(Clarifai.GENERAL_MODEL, photo.base64)
+      app.models.predict(Clarifai.FOOD_MODEL, photo.base64)
       .then(response => {
           var currentIngredient = [];
           const general = ['food', 'vegetable', 'fruit', 'cuisine', 'grow', 'dish', 'ingredient', 'meat', 'still life', 'leaf vegetable', 'natural foods', 'local food', 'produce', 'vegan nutrition', 'garnish', 'baked goods', 'fast food', 'leaf', 'nature', 'no person', 'ingredients', 'indoors', 'contemporary', 'health', 'nutrition', 'farming', 'juicy'];
