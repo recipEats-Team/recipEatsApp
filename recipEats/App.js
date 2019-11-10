@@ -152,7 +152,7 @@ class recipEats extends React.Component {
               <TouchableHighlight style={styles.captureButton} disabled={this.props.buttonDisabled}>
                 <Button onPress={this.snap.bind(this)} disabled={this.props.buttonDisabled} title="Capture" accessibilityLabel="Learn more about this button"/>
               </TouchableHighlight>
-              
+
               <TouchableHighlight style={styles.captureButton} disabled={this.props.buttonDisabled}>
                 <Button onPress={this.loadIntoList.bind(this)} disabled={this.props.buttonDisabled} title="Get Recipe" accessibilityLabel="Learn more about this button"/>
               </TouchableHighlight>
