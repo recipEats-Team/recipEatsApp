@@ -91,13 +91,8 @@ class recipEats extends React.Component {
         for(var ingredient of copyIngredients){
           strIngredients+=ingredient+",";
         }
-<<<<<<< HEAD
-        request.open('GET', 'https://www.food2fork.com/api/search?key=226d977815557f65b903f18e7157d1cd&q='+ strIngredients, true)
-        request.send()
-=======
-        request.open('GET', 'https://www.food2fork.com/api/search?key=b608fc52e7a39e465582bd652ae336d9&q='+ strIngredients, true)
-        
->>>>>>> 16fbc3daa5f4c31f540efb367353720eb70a1155
+        request.open('GET', 'https://www.food2fork.com/api/search?key=226d977815557f65b903f18e7157d1cd&q='+ strIngredients, true);
+        request.send();
         request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
                 var data = JSON.parse(this.response);
@@ -114,7 +109,6 @@ class recipEats extends React.Component {
             }
             console.log(recipes);
         };
-        request.send()
       }
 
   render() {
