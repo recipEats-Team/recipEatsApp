@@ -69,13 +69,10 @@ class recipEats extends React.Component {
           }
           ingredients.push(currentIngredient[0]);
           console.log(ingredients);
-          for (var i = 0; i < currentIngredient.length; i++) {
-
-          }
         })
         .catch(err => {
           console.log(err);
-      });
+        });
 
 
     }
@@ -91,13 +88,8 @@ class recipEats extends React.Component {
         for(var ingredient of copyIngredients){
           strIngredients+=ingredient+",";
         }
-<<<<<<< HEAD
-        request.open('GET', 'https://www.food2fork.com/api/search?key=226d977815557f65b903f18e7157d1cd&q='+ strIngredients, true)
-        request.send()
-=======
-        request.open('GET', 'https://www.food2fork.com/api/search?key=b608fc52e7a39e465582bd652ae336d9&q='+ strIngredients, true)
-        
->>>>>>> 16fbc3daa5f4c31f540efb367353720eb70a1155
+
+        request.open('GET', 'https://www.food2fork.com/api/search?key=226d977815557f65b903f18e7157d1cd&q='+ strIngredients, true);
         request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
                 var data = JSON.parse(this.response);
@@ -185,17 +177,26 @@ class RecipePage extends React.Component {
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text style={{color: 'blue'}}
+        <Text style={{fontSize: 21}}>
+          {recipes[0].recipe_title}
+        </Text>
+        <Text style={{color: 'blue', marginBottom: 30}}
           onPress={() => Linking.openURL(recipes[0].recipe_url)}>
           1. {recipes[0].recipe_title} Recipe Link
         </Text>
 
-        <Text style={{color: 'blue'}}
+        <Text style={{fontSize: 21}}>
+          {recipes[1].recipe_title}
+        </Text>
+        <Text style={{color: 'blue', marginBottom: 30}}
           onPress={() => Linking.openURL(recipes[1].recipe_url)}>
           2. {recipes[1].recipe_title} Recipe Link
         </Text>
 
-        <Text style={{color: 'blue'}}
+        <Text style={{fontSize: 21}}>
+          {recipes[2].recipe_title}
+        </Text>
+        <Text style={{color: 'blue', marginBottom: 30}}
           onPress={() => Linking.openURL(recipes[2].recipe_url)}>
           3. {recipes[2].recipe_title} Recipe Link
         </Text>
