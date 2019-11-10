@@ -3,15 +3,24 @@ import { Text, View, TouchableOpacity, StyleSheet, TouchableHighlight, Button } 
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 
-export default class CameraExample extends React.Component {
+export default class recipEats extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
+    photo: null,
   };
 
   async componentDidMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
+  }
+
+  async snap() {
+    if (this.camera) {
+      let photo = await this.camera.takePictureAsync();
+      console.log(photo);
+      this.setState({ photo: photo });
+    }
   }
 
   render() {
@@ -23,7 +32,11 @@ export default class CameraExample extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} type={this.state.type}>
+          <Camera style={{ flex: 1 }} type={this.state.type}
+            ref={ref => {
+              //console.log(ref);
+              this.camera = ref;
+          }}>
             <View
               style={{
                 flex: 1,
@@ -47,7 +60,7 @@ export default class CameraExample extends React.Component {
                 <Text style={{ fontSize: 18, marginBottom: 10, marginLeft: 5, color: 'white' }}> Flip </Text>
               </TouchableOpacity>
               <TouchableHighlight style={styles.captureButton} disabled={this.props.buttonDisabled}>
-                <Button onPress={this.props.onClick} disabled={this.props.buttonDisabled} title="Capture" accessibilityLabel="Learn more about this button"/>
+                <Button onPress={this.snap.bind(this)} disabled={this.props.buttonDisabled} title="Capture" accessibilityLabel="Learn more about this button"/>
               </TouchableHighlight>
             </View>
           </Camera>
