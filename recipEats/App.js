@@ -2,11 +2,18 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, TouchableHighlight, Button } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
-import { quickstart } from 'test.js';
 
-var imageTemp = {
-  image: null,
-}
+const Clarifai = require('clarifai');
+
+const app = new Clarifai.App({
+  apiKey: 'df97b2c4d8824774985ab72ef6420510'
+});
+
+//import { Quickstart } from 'test.js';
+
+// var imageTemp = {
+//   image: null,
+// }
 
 export default class recipEats extends React.Component {
   state = {
@@ -21,10 +28,20 @@ export default class recipEats extends React.Component {
 
   async snap() {
     if (this.camera) {
-      let photo = await this.camera.takePictureAsync();
-      imageTemp.image = photo;
-      //console.log(imageTemp.image);
-      quickstart(imageTemp);
+      const options = {
+        base64: true,
+      }
+
+      let photo = await this.camera.takePictureAsync(options);
+
+      app.models.predict(Clarifai.GENERAL_MODEL, photo.base64)
+      .then(response => {
+          console.log(response);
+        })
+        .catch(err => {
+          console.log(err);
+      });
+
 
     }
   }

@@ -1,4 +1,4 @@
-async function quickstart(imageTemp) {
+/*async function Quickstart(imageTemp) {
     // Imports the Google Cloud client library
     const vision = require('@google-cloud/vision');
 
@@ -20,6 +20,6 @@ async function quickstart(imageTemp) {
     }
     console.log(finalLabels[0]);
   }
-
+*/
 //Gets label 'value' from promise object returned by quickstart async function
 //quickstart().then(value => console.log(value));
