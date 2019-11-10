@@ -89,7 +89,11 @@ class recipEats extends React.Component {
           strIngredients+=ingredient+",";
         }
 
+<<<<<<< HEAD
         request.open('GET', 'https://www.food2fork.com/api/search?key=f44660c756daa0d74cd838fa500e6b00&q='+ strIngredients, true);
+=======
+        request.open('GET', 'https://www.food2fork.com/api/search?key=dcd439ef759a1addc77cfc7f42b7e7d7&q='+ strIngredients, true);
+>>>>>>> ef40b2a118e601f0ee9af1aa85ee1e7dc586a92e
         request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
                 var data = JSON.parse(this.response);
