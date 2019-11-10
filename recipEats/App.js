@@ -5,6 +5,16 @@ import { Camera } from 'expo-camera';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
+//https://www.taniarascia.com/how-to-connect-to-an-api-with-javascript/
+
+//Retrieving the data with an HTTP request
+//var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+var XMLHttpRequest = require("xhr2");
+var request = new XMLHttpRequest;
+
+var recipes = [];
+
 const Clarifai = require('clarifai');
 
 const app = new Clarifai.App({
@@ -13,12 +23,13 @@ const app = new Clarifai.App({
 
 var ingredients = [];
 
+var fString = "";
+
 //import { Quickstart } from 'test.js';
 
 // var imageTemp = {
 //   image: null,
 // }
-
 
 
 class recipEats extends React.Component {
@@ -48,7 +59,7 @@ class recipEats extends React.Component {
       app.models.predict(Clarifai.GENERAL_MODEL, photo.base64)
       .then(response => {
           var currentIngredient = [];
-          const general = ['food', 'vegetable', 'fruit', 'cuisine', 'grow', 'dish', 'ingredient', 'meat', 'still life', 'leaf vegetable', 'natural foods', 'local food', 'produce', 'vegan nutrition', 'garnish', 'baked goods', 'fast food', 'leaf', 'nature', 'no person', 'ingredients', 'indoors', 'contemporary', 'health'];
+          const general = ['food', 'vegetable', 'fruit', 'cuisine', 'grow', 'dish', 'ingredient', 'meat', 'still life', 'leaf vegetable', 'natural foods', 'local food', 'produce', 'vegan nutrition', 'garnish', 'baked goods', 'fast food', 'leaf', 'nature', 'no person', 'ingredients', 'indoors', 'contemporary', 'health', 'nutrition', 'farming', 'juicy'];
           for(var i of response['outputs'][0]['data']['concepts']){
             if(!general.includes(i.name)){
               currentIngredient.push(i.name);
@@ -56,6 +67,9 @@ class recipEats extends React.Component {
           }
           ingredients.push(currentIngredient[0]);
           console.log(ingredients);
+          for (var i = 0; i < currentIngredient.length; i++) {
+
+          }
         })
         .catch(err => {
           console.log(err);
@@ -122,10 +136,46 @@ class RecipePage extends React.Component {
   static navigationOptions = {
     title: 'RecipePage',
   };
+
+  async top3recipes() {
+
+    console.log("test");
+    const copyIngredients = ingredients;
+    ingredients = [];
+    var strIngredients = "";
+    for(var ingredient of copyIngredients){
+      strIngredients+=ingredient+",";
+    }
+    request.open('GET', 'https://www.food2fork.com/api/search?key=b608fc52e7a39e465582bd652ae336d9&q='+ strIngredients, true)
+    request.onload = function() {
+        if (request.status >= 200 && request.status < 400) {
+            var data = JSON.parse(this.response);
+            var topThree = data.recipes.slice(0,3);
+            for(var element of topThree){
+                var currentRecipe = {};
+                currentRecipe["recipe_title"] = element.title;
+                currentRecipe["recipe_url"] = element.source_url;
+                currentRecipe["recipe_image"] = element.image_url;
+                recipes.push(currentRecipe);
+            }
+        } else {
+            console.log("error");
+        }
+
+        console.log(recipes);
+    };
+
+    request.send()
+
+  }
+
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text>Recipe Screen</Text>
+        <Text>Hello</Text>
+        <TouchableHighlight style={styles.showRecipiesButton} disabled={this.props.buttonDisabled}>
+          <Button onPress={this.top3recipes.bind(this)} disabled={this.props.buttonDisabled} title="Show Recipes" accessibilityLabel="Learn more about this button"/>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -177,5 +227,16 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-end',
     flexDirection: 'column'
+  },
+  showRecipiesButton: {
+    //width: 300,
+    height: 50,
+    // marginTop: 590,
+    // marginLeft: -195,
+    borderRadius: 100,
+    backgroundColor: "#00BFFF",
+    borderColor: "white",
+    borderWidth: 3,
+    alignItems: 'stretch'
   }
 });

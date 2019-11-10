@@ -8,7 +8,7 @@ var request = new XMLHttpRequest;
 
 var recipes = [];
 
-request.open('GET', 'https://www.food2fork.com/api/search?key=b608fc52e7a39e465582bd652ae336d9&q=bacon,tomatot,lettuce,bread&page=2', true)
+request.open('GET', 'https://www.food2fork.com/api/search?key=b608fc52e7a39e465582bd652ae336d9&q=bacon,tomato,lettuce,bread&page=2', true)
 request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
         var data = JSON.parse(this.response);
