@@ -9,7 +9,11 @@ request.open('GET', 'https://www.food2fork.com/api/search?key=b608fc52e7a39e4655
 request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
         var data = JSON.parse(this.response);
-        console.log(data);
+        var topThree = data.recipes.slice(0,3);
+        for(var element of topThree){
+            console.log(element.title);
+            console.log("\tRecipe URL: " + element.source_url)
+        }
     } else {
         console.log("error");
     }
