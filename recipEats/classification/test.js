@@ -1,4 +1,4 @@
-async function quickstart() {
+async function quickstart(imageTemp) {
     // Imports the Google Cloud client library
     const vision = require('@google-cloud/vision');
 
@@ -6,7 +6,7 @@ async function quickstart() {
     const client = new vision.ImageAnnotatorClient();
 
     // Performs label detection on the image file
-    const [result] = await client.labelDetection(App.imageTemp.image.uri);
+    const [result] = await client.labelDetection(imageTemp.image.uri);
     const labels = result.labelAnnotations;
     //console.log('Labels:');
     //labels.forEach(label => console.log(label.description));
@@ -18,8 +18,8 @@ async function quickstart() {
         finalLabels.push(label.description);
       }
     }
-    return finalLabels[0];
+    console.log(finalLabels[0]);
   }
 
 //Gets label 'value' from promise object returned by quickstart async function
-quickstart().then(value => console.log(value));
+//quickstart().then(value => console.log(value));
