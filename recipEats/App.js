@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, TouchableHighlight, Button } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, TouchableHighlight, Button, Linking } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import { createAppContainer } from 'react-navigation';
@@ -179,7 +179,20 @@ class RecipePage extends React.Component {
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text>{recipes[0].recipe_image}</Text>
+        <Text style={{color: 'blue'}}
+          onPress={() => Linking.openURL(recipes[0].recipe_url)}>
+          {recipes[0].recipe_title} Recipe Link
+        </Text>
+
+        <Text style={{color: 'blue'}}
+          onPress={() => Linking.openURL(recipes[1].recipe_url)}>
+          {recipes[1].recipe_title} Recipe Link
+        </Text>
+
+        <Text style={{color: 'blue'}}
+          onPress={() => Linking.openURL(recipes[2].recipe_url)}>
+          {recipes[2].recipe_title} Recipe Link
+        </Text>
       </View>
     );
   }
