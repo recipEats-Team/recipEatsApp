@@ -3,11 +3,14 @@ import { Text, View, TouchableOpacity, StyleSheet, TouchableHighlight, Button } 
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 
+var imageTemp = {
+  image: null,
+}
+
 export default class recipEats extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
-    photo: null,
   };
 
   async componentDidMount() {
@@ -18,8 +21,8 @@ export default class recipEats extends React.Component {
   async snap() {
     if (this.camera) {
       let photo = await this.camera.takePictureAsync();
-      console.log(photo);
-      this.setState({ photo: photo });
+      imageTemp.image = photo;
+      console.log(imageTemp.image);
     }
   }
 
