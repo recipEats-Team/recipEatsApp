@@ -8,6 +8,7 @@ const Clarifai = require('clarifai');
 const app = new Clarifai.App({
   apiKey: 'df97b2c4d8824774985ab72ef6420510'
 });
+var ingredients = [];
 
 //import { Quickstart } from 'test.js';
 
@@ -38,12 +39,20 @@ export default class recipEats extends React.Component {
 
       app.models.predict(Clarifai.GENERAL_MODEL, photo.base64)
       .then(response => {
-          console.log(response);
+          var currentIngredient = [];
+          const general = ['food', 'vegetable', 'fruit', 'cuisine', 'grow', 'dish', 'ingredient', 'meat', 'still life', 'leaf vegetable', 'natural foods', 'local food', 'produce', 'vegan nutrition', 'garnish', 'baked goods', 'fast food', 'leaf', 'nature', 'no person', 'ingredients', 'indoors', 'contemporary', 'health'];
+          for(var i of response['outputs'][0]['data']['concepts']){
+            if(!general.includes(i.name)){
+              currentIngredient.push(i.name);
+            }
+          }
+          ingredients.push(currentIngredient[0]);
+          console.log(ingredients);
         })
         .catch(err => {
           console.log(err);
       });
-
+      
 
     }
   }
