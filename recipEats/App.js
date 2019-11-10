@@ -36,6 +36,9 @@ class recipEats extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
+    recipe1Info: null,
+    recipe2Info: null,
+    recipe3Info: null,
   };
 
   static navigationOptions = {
@@ -56,7 +59,7 @@ class recipEats extends React.Component {
 
       let photo = await this.camera.takePictureAsync(options);
 
-      app.models.predict(Clarifai.GENERAL_MODEL, photo.base64)
+      app.models.predict(Clarifai.FOOD_MODEL, photo.base64)
       .then(response => {
           var currentIngredient = [];
           const general = ['food', 'vegetable', 'fruit', 'cuisine', 'grow', 'dish', 'ingredient', 'meat', 'still life', 'leaf vegetable', 'natural foods', 'local food', 'produce', 'vegan nutrition', 'garnish', 'baked goods', 'fast food', 'leaf', 'nature', 'no person', 'ingredients', 'indoors', 'contemporary', 'health', 'nutrition', 'farming', 'juicy'];
@@ -78,6 +81,35 @@ class recipEats extends React.Component {
 
     }
   }
+
+  loadIntoList() {
+
+        console.log("test");
+        const copyIngredients = ingredients;
+        ingredients = [];
+        var strIngredients = "";
+        for(var ingredient of copyIngredients){
+          strIngredients+=ingredient+",";
+        }
+        request.open('GET', 'https://www.food2fork.com/api/search?key=b608fc52e7a39e465582bd652ae336d9&q='+ strIngredients, true)
+        request.send()
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                var data = JSON.parse(this.response);
+                var topThree = data.recipes.slice(0,3);
+                for(var element of topThree){
+                    var currentRecipe = {};
+                    currentRecipe["recipe_title"] = element.title;
+                    currentRecipe["recipe_url"] = element.source_url;
+                    currentRecipe["recipe_image"] = element.image_url;
+                    recipes.push(currentRecipe);
+                }
+            } else {
+                console.log("error");
+            }
+            console.log(recipes);
+        };
+      }
 
   render() {
     const {navigate} = this.props.navigation;
@@ -120,10 +152,15 @@ class recipEats extends React.Component {
               <TouchableHighlight style={styles.captureButton} disabled={this.props.buttonDisabled}>
                 <Button onPress={this.snap.bind(this)} disabled={this.props.buttonDisabled} title="Capture" accessibilityLabel="Learn more about this button"/>
               </TouchableHighlight>
+              
+              <TouchableHighlight style={styles.captureButton} disabled={this.props.buttonDisabled}>
+                <Button onPress={this.loadIntoList.bind(this)} disabled={this.props.buttonDisabled} title="Get Recipe" accessibilityLabel="Learn more about this button"/>
+              </TouchableHighlight>
 
               <TouchableHighlight style={styles.getRecipeButton} disabled={this.props.buttonDisabled}>
-                <Button onPress={() => this.props.navigation.navigate('RecipePage')} disabled={this.props.buttonDisabled} title="Get Recipe" accessibilityLabel="Learn more about this button"/>
+                <Button onPress={() => this.props.navigation.navigate('RecipePage')} disabled={this.props.buttonDisabled} title="Show Recipe" accessibilityLabel="Learn more about this button"/>
               </TouchableHighlight>
+
             </View>
           </Camera>
         </View>
@@ -137,45 +174,12 @@ class RecipePage extends React.Component {
     title: 'RecipePage',
   };
 
-  async top3recipes() {
 
-    console.log("test");
-    const copyIngredients = ingredients;
-    ingredients = [];
-    var strIngredients = "";
-    for(var ingredient of copyIngredients){
-      strIngredients+=ingredient+",";
-    }
-    request.open('GET', 'https://www.food2fork.com/api/search?key=b608fc52e7a39e465582bd652ae336d9&q='+ strIngredients, true)
-    request.onload = function() {
-        if (request.status >= 200 && request.status < 400) {
-            var data = JSON.parse(this.response);
-            var topThree = data.recipes.slice(0,3);
-            for(var element of topThree){
-                var currentRecipe = {};
-                currentRecipe["recipe_title"] = element.title;
-                currentRecipe["recipe_url"] = element.source_url;
-                currentRecipe["recipe_image"] = element.image_url;
-                recipes.push(currentRecipe);
-            }
-        } else {
-            console.log("error");
-        }
-
-        console.log(recipes);
-    };
-
-    request.send()
-
-  }
 
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-        <Text>Hello</Text>
-        <TouchableHighlight style={styles.showRecipiesButton} disabled={this.props.buttonDisabled}>
-          <Button onPress={this.top3recipes.bind(this)} disabled={this.props.buttonDisabled} title="Show Recipes" accessibilityLabel="Learn more about this button"/>
-        </TouchableHighlight>
+        <Text>{recipes[0].recipe_image}</Text>
       </View>
     );
   }
