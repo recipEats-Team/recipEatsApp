@@ -91,7 +91,7 @@ class recipEats extends React.Component {
         for(var ingredient of copyIngredients){
           strIngredients+=ingredient+",";
         }
-        request.open('GET', 'https://www.food2fork.com/api/search?key=b608fc52e7a39e465582bd652ae336d9&q='+ strIngredients, true)
+        request.open('GET', 'https://www.food2fork.com/api/search?key=226d977815557f65b903f18e7157d1cd&q='+ strIngredients, true)
         request.send()
         request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
@@ -181,17 +181,17 @@ class RecipePage extends React.Component {
       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <Text style={{color: 'blue'}}
           onPress={() => Linking.openURL(recipes[0].recipe_url)}>
-          {recipes[0].recipe_title} Recipe Link
+          1. {recipes[0].recipe_title} Recipe Link
         </Text>
 
         <Text style={{color: 'blue'}}
           onPress={() => Linking.openURL(recipes[1].recipe_url)}>
-          {recipes[1].recipe_title} Recipe Link
+          2. {recipes[1].recipe_title} Recipe Link
         </Text>
 
         <Text style={{color: 'blue'}}
           onPress={() => Linking.openURL(recipes[2].recipe_url)}>
-          {recipes[2].recipe_title} Recipe Link
+          3. {recipes[2].recipe_title} Recipe Link
         </Text>
       </View>
     );
