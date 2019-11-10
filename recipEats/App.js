@@ -15,6 +15,7 @@ const app = new Clarifai.App({
 //   image: null,
 // }
 
+
 export default class recipEats extends React.Component {
   state = {
     hasCameraPermission: null,
@@ -25,6 +26,7 @@ export default class recipEats extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
   }
+
 
   async snap() {
     if (this.camera) {
